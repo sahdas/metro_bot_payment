@@ -20,8 +20,12 @@ async function run() {
                // process any change event
                switch (next.operationType) {
                    case 'insert':
-                       io.emit("chat message", next.fullDocument.transactionId);
-                       console.log(next.fullDocument.transactionId)
+                    //let data = `{transactionId: ${next.fullDocument.transactionId}+${next.fullDocument.phoneNumber}`
+                    let data= {}
+                    data.transactionId = next.fullDocument.transactionId
+                    data.phoneNumber = next.fullDocument.phoneNumber
+                       io.emit("payment", JSON.stringify(data));
+                       console.log(next.fullDocument.transactionId,next.fullDocument.phoneNumber)
                        break;
                }
            });
